@@ -1,12 +1,12 @@
 PDO Database Class
 ============================
 
+composer require sintret/pdo
+
 A database class for PHP-MySQL which uses the PDO extension.
 
-If you have any questions go to : http://indieteq.com/index/readmore/how-to-prevent-sql-injection-in-php
 
 ## To use the class
-#### 1. Edit the database settings in the settings.ini.php
 ### Note if PDO is loading slow change localhost to -> 127.0.0.1 !
 ```
 [SQL]
@@ -17,14 +17,15 @@ dbname = yourdatabase
 ```
 #### 2. Require the class in your project
 ```php
-<?php
-require("Db.class.php");
+require(__DIR__ . '/vendor/autoload.php');
+
 ```
 #### 3. Create the instance 
 ```php
 <?php
 // The instance
-$db = new Db();
+$db = new \sintret\pdo\Db($host, $db, $user, $pass);
+
 ```
 #### 4.  Logs - Modify the read/write rights of the root folder
 
