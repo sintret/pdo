@@ -11,7 +11,7 @@
 
 namespace sintret\pdo;
 
-class DB {
+class Db {
     # @object, The PDO object
 
     private $pdo;
