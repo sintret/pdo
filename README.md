@@ -2,9 +2,8 @@ PDO Database Class
 ============================
 
 ## add via composer :
+composer require sintret/pdo
 
-### composer require sintret/pdo
-```
 A database class for PHP-MySQL which uses the PDO extension.
 
 
