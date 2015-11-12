@@ -5,12 +5,12 @@
         "pdo",
         "mysql"
     ],
-    "homepage": "https://github.com/sintret/yii2-todolist",
+    "homepage": "https://github.com/sintret/pdo",
     "type": "pdo-extension",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/sintret/yii2-todolist/issues",
-        "source": "https://github.com/sintret/yii2-todolist"
+        "issues": "https://github.com/sintret/pdo/issues",
+        "source": "https://github.com/sintret/pdo"
     },
     "authors": [
         {
