@@ -11,6 +11,8 @@
 
 namespace sintret\pdo;
 
+use \PDO;
+
 class Db {
     # @object, The PDO object
 
