@@ -11,17 +11,32 @@ namespace sintret\pdo;
 
 class Crud {
 
-    private $db;
     public $variables;
+    private $db;
+    
+    // this is your class name;
+    public $className;
 
     public function __construct($data = array()) {
-        $this->db = new DB();
         $this->variables = $data;
+        if ($this->className!== NULL) {
+            $this->db = new $this->className;
+        } else {
+            echo 'Error no className database attached!';
+            exit(0);
+        }
+    }
+
+    //you can set db too
+    public function setDb($db) {
+        $this->db = $db;
     }
 
     public function __set($name, $value) {
         if (strtolower($name) === $this->pk) {
             $this->variables[$this->pk] = $value;
+        } else if (strtolower($name) == 'db') {
+            $this->db = $value;
         } else {
             $this->variables[$name] = $value;
         }
