@@ -1,11 +1,11 @@
 PDO Database Class
 ============================
 
-### 1. Add via composer :
+#### 1. Add via composer :
 ```
 composer require sintret/pdo
 ```
-### 2. Extend your class db and your object model :
+#### 2. Extend your class db and your object model :
 
 ```
 #Create class MyDb for example and extends from \sintret\pdo\Db.
@@ -34,25 +34,29 @@ class Persons extends sintret\pdo\Crud {
 }
 ```
 
-```
-[SQL]
-host = 127.0.0.1
-user = root
-password = 
-dbname = yourdatabase
-```
-#### 2. Require the class in your project
-```php
-require(__DIR__ . '/vendor/autoload.php');
-
-```
-#### 3. Create the instance 
+#### 3. Bootstraping in your project example in index.php
 ```php
 <?php
-// The instance
-$db = new \sintret\pdo\Db($host, $db, $user, $pass);
+require(__DIR__ . '/vendor/autoload.php');
+include 'MyDb.php';
+$db = new MyDb;
+
+$persons = $db->query("SELECT * FROM persons");
+echo "<pre>";print_r($persons);
+
+$person = new Persons();
+// Create new person
+$person->Firstname = "Kona";
+$person->Age = "20";
+$person->Sex = "F";
+$created = $person->create();
+
+//  Or give the bindings to the constructor
+$person = new Persons(array("Firstname" => "Kona", "age" => "20", "sex" => "F"));
+$created = $person->create();
 
 ```
+
 #### 4.  Logs - Modify the read/write rights of the root folder
 
 Everytime an exception is thrown by the database class a log file gets created or modified.
