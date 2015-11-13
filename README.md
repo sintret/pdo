@@ -1,15 +1,40 @@
 PDO Database Class
 ============================
 
-### add via composer :
+### 1. Add via composer :
+```
 composer require sintret/pdo
 ```
+### 2. Extend your class db and your object model :
 
+```
 ## A database class for PHP-MySQL which uses the PDO extension.
-
-
 ## To use the class
 ### Note if PDO is loading slow change localhost to -> 127.0.0.1 !
+```
+require(__DIR__ . './config/database.php');
+
+class MyDb extends \sintret\pdo\Db {
+
+    public function __construct() {
+        parent::__construct(HOST, DB_NAME, DB_USER, DB_PASS);
+    }
+
+}
+
+
+//create class Persons if we want
+class Persons extends sintret\pdo\Crud {
+
+    protected $table = 'persons';
+
+    # Primary Key of the table
+    protected $pk = 'id';
+    
+    public $className = 'MyDb';
+   
+}
+
 ```
 [SQL]
 host = 127.0.0.1
