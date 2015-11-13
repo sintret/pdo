@@ -8,10 +8,10 @@ composer require sintret/pdo
 ### 2. Extend your class db and your object model :
 
 ```
-## A database class for PHP-MySQL which uses the PDO extension.
-## To use the class
-### Note if PDO is loading slow change localhost to -> 127.0.0.1 !
-```
+#Create class MyDb for example and extends from \sintret\pdo\Db.
+#To use the class
+#if you want object model from table mysql you can use like these following class Persons with extends from Crud
+
 require(__DIR__ . './config/database.php');
 
 class MyDb extends \sintret\pdo\Db {
@@ -19,9 +19,7 @@ class MyDb extends \sintret\pdo\Db {
     public function __construct() {
         parent::__construct(HOST, DB_NAME, DB_USER, DB_PASS);
     }
-
 }
-
 
 //create class Persons if we want
 class Persons extends sintret\pdo\Crud {
@@ -34,6 +32,7 @@ class Persons extends sintret\pdo\Crud {
     public $className = 'MyDb';
    
 }
+```
 
 ```
 [SQL]
