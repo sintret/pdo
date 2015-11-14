@@ -223,7 +223,7 @@ class Db {
      *   	@param  int    $fetchmode
      * 	@return array
      */
-    public function row($query, $params = null, $fetchmode = PDO::FETCH_ASSOC) {
+    public function row($query, $params = null, $fetchmode = PDO::FETCH_OBJ) {
         $this->Init($query, $params);
         return $this->sQuery->fetch($fetchmode);
     }

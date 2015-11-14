@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Easy Crud  -  This class kinda works like ORM. Just created for fun :) 
+ * Easy Crud  -  This class kinda works like ORM. Just created for fun :)
  *
  * @author		Author: Vivek Wicky Aswal. (https://twitter.com/#!/VivekWickyAswal)
  * @version      0.1a
@@ -9,22 +9,28 @@
 
 namespace sintret\pdo;
 
+use PDO;
+
 class Crud {
 
     public $variables;
-    private $db;
-    
+    protected $db;
     // this is your class name;
     public $className;
+    public $query;
+    public $sql;
+    public $params;
 
     public function __construct($data = array()) {
         $this->variables = $data;
-        if ($this->className!== NULL) {
+        if ($this->className !== NULL) {
             $this->db = new $this->className;
         } else {
             echo 'Error no className database attached!';
             exit(0);
         }
+
+        $this->sql = "SELECT * FROM " . $this->table;
     }
 
     //you can set db too
@@ -87,7 +93,7 @@ class Crud {
             $sql = "INSERT INTO " . $this->table . " () VALUES ()";
         }
 
-        return $this->db->query($sql, $bindings);
+        return $this->db->query($sql, $bindings, $fetchmode = PDO::FETCH_OBJ);
     }
 
     public function delete($id = "") {
@@ -99,7 +105,7 @@ class Crud {
         }
     }
 
-    public function find($id = "") {
+    public function findOne($id = "") {
         $id = (empty($this->variables[$this->pk])) ? $id : $this->variables[$this->pk];
 
         if (!empty($id)) {
@@ -108,8 +114,35 @@ class Crud {
         }
     }
 
+    public function findAll($params = NULL) {
+        if ($params) {
+            $this->where($params);
+        } else {
+            $sql = $this->sql;
+            $params = $this->params;
+        }
+        return $this->db->query($sql, $params, $fetchmode = PDO::FETCH_OBJ);
+    }
+
+    public function where($params = NULL) {
+
+        $where = ' ';
+        if ($params) {
+            $where .= 'WHERE ';
+            foreach ($params as $k => $v) {
+                $where .= $k . '= :' . $k;
+            }
+            $this->sql = "SELECT * FROM " . $this->table . $where;
+            $this->params = $params;
+        }
+    }
+
+    public function one() {
+        return $this->db->row($this->sql, $this->params, $fetchmode = PDO::FETCH_OBJ);
+    }
+
     public function all() {
-        return $this->db->query("SELECT * FROM " . $this->table);
+        return $this->db->query($this->sql, $this->params, $fetchmode = PDO::FETCH_OBJ);
     }
 
     public function min($field) {
