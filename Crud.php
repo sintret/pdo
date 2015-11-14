@@ -96,6 +96,14 @@ class Crud {
         return $this->db->query($sql, $bindings, $fetchmode = PDO::FETCH_OBJ);
     }
 
+    public function find($id = "") {
+        $id = (empty($this->variables[$this->pk])) ? $id : $this->variables[$this->pk];
+        if (!empty($id)) {
+            $sql = "SELECT * FROM " . $this->table . " WHERE " . $this->pk . "= :" . $this->pk . " LIMIT 1";
+            $this->variables = $this->db->row($sql, array($this->pk => $id));
+        }
+    }
+
     public function delete($id = "") {
         $id = (empty($this->variables[$this->pk])) ? $id : $this->variables[$this->pk];
 
